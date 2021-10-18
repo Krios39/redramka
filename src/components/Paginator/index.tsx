@@ -12,6 +12,8 @@ interface PaginatorProps {
 export const Paginator = (props: PaginatorProps) => {
   const [page, setPage] = useState<number>(0);
   const [prevPage, setPrevPage] = useState<number>(0);
+  const [buttonsDisabled, setButtonsDisabled] = useState<boolean>(false);
+
   const countAllPages = props.children.length;
 
   const onNextButtonClick = () => {
@@ -26,6 +28,15 @@ export const Paginator = (props: PaginatorProps) => {
     } else setPage((prev) => prev - 1);
   };
 
+  const onAnimationEnter = () => {
+    setButtonsDisabled(true);
+  };
+
+  const onAnimationEntered = () => {
+    setPrevPage(page);
+    setButtonsDisabled(false);
+  };
+
   return (
     <div className="paginator">
       <SwitchTransition mode={"in-out"}>
@@ -37,15 +48,24 @@ export const Paginator = (props: PaginatorProps) => {
               : "prev-transition"
           }
           timeout={500}
-          onEntered={() => setPrevPage(page)}
+          onEntered={onAnimationEntered}
+          onEnter={onAnimationEnter}
         >
           <div className={"paginator__content"}>{props.children[page]}</div>
         </CSSTransition>
       </SwitchTransition>
 
       <div className="paginator__buttons_block">
-        <PaginatorButton type={ButtonType.Prev} onClick={onPrevButtonClick} />
-        <PaginatorButton type={ButtonType.Next} onClick={onNextButtonClick} />
+        <PaginatorButton
+          disabled={buttonsDisabled}
+          type={ButtonType.Prev}
+          onClick={onPrevButtonClick}
+        />
+        <PaginatorButton
+          disabled={buttonsDisabled}
+          type={ButtonType.Next}
+          onClick={onNextButtonClick}
+        />
       </div>
       <PaginatorLinks
         pageCount={countAllPages}
