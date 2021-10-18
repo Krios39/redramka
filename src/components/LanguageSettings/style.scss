@@ -1,0 +1,28 @@
+.language_settings {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.language_circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 0.5px solid green;
+  color: green;
+  cursor: pointer;
+
+  &:first-child {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.selected_language {
+  color: white;
+  background: green;
+}
