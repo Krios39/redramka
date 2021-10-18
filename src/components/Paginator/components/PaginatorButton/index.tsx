@@ -17,11 +17,7 @@ export const PaginatorButton = (props: PaginatorButtonProps) => {
   };
 
   return (
-    <div
-      aria-disabled={props.disabled}
-      className={"paginator__button"}
-      onClick={onClick}
-    >
+    <div className={"paginator__button"} onClick={onClick}>
       <span
         className={`mdi mdi-chevron-${
           props.type === ButtonType.Next ? "right" : "left"
